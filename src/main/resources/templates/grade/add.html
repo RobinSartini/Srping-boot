@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" 
+      xmlns:th="http://www.thymeleaf.org">
+<head th:replace="common.html :: #header">
+<body>
+<div class="container">
+    <div th:replace="common.html :: #menu"></div>
+    <div class="row">
+        <h2>Nouvelle note</h2>
+    </div>
+
+    <div class="row">
+        <form th:action="@{/grade/add}" th:object="${grade}" method="post" class="form-horizontal" style="width: 100%">
+            <div class="form-group">
+                <label for="registrationNumber" class="col-sm-2 control-label">Étudiant</label>
+                <div class="col-sm-10">
+                    <select th:field="*{registrationNumber}" id="registrationNumber" class="form-control col-4">
+                        <option value="">-- Sélectionner un étudiant --</option>
+                        <option th:each="student : ${students}" 
+                                th:value="${student.registrationNumber}" 
+                                th:text="${student.firstName + ' ' + student.lastName}"></option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="subjectId" class="col-sm-2 control-label">Matière</label>
+                <div class="col-sm-10">
+                    <select th:field="*{subjectId}" id="subjectId" class="form-control col-4">
+                        <option value="">-- Sélectionner une matière --</option>
+                        <option th:each="subject : ${subjects}" 
+                                th:value="${subject.id}" 
+                                th:text="${subject.name}"></option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="gradeValue" class="col-sm-2 control-label">Note</label>
+                <div class="col-sm-10">
+                    <input type="number" step="0.1" min="0" max="20" th:field="*{gradeValue}" id="gradeValue" placeholder="Note" class="col-4">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-sm-12">
+                    <a class="btn btn-danger btn-sm" href="/grade/list">Annuler</a>
+                    <input class="btn btn-primary btn-sm" type="submit" value="Enregistrer">
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html> 
